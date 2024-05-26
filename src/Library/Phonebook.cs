@@ -31,4 +31,21 @@ public class Phonebook
 
         return result;
     }
+    public void AddContact(Contact contact)
+    {
+        persons.Add(contact);
+    }
+    public void RemoveContact(Contact contact)
+    {
+        persons.Remove(contact);
+    }
+    public void SendMessage(string[] names, string text, IMessageChannel channel)
+    {
+        List<Contact> contacts = Search(names);
+        foreach (Contact contact in contacts)
+        {
+            Message outgoingMessage = channel.NewMessage(contact, text);
+            channel.Send(outgoingMessage);
+        }
+    }
 }
